@@ -49,7 +49,7 @@ export const Navigation = () => {
             ))}
             <Link to="/login" className="ml-4">
               <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-foreground">
-                Admin
+                Masuk
               </Button>
             </Link>
           </div>
