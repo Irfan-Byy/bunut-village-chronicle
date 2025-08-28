@@ -47,6 +47,11 @@ export const Navigation = () => {
                 </Button>
               </Link>
             ))}
+            <Link to="/login" className="ml-4">
+              <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-foreground">
+                Admin
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,6 +81,15 @@ export const Navigation = () => {
                   </Button>
                 </Link>
               ))}
+              <Link to="/login">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-xs text-muted-foreground"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Login
+                </Button>
+              </Link>
             </div>
           </div>
         )}
