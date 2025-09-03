@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api", // Laravel API base
-  withCredentials: true, // penting untuk Sanctum
+  baseURL: import.meta.env.VITE_API_URL, // otomatis baca dari .env
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
