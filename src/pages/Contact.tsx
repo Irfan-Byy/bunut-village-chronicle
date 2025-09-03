@@ -12,8 +12,8 @@ const Contact = () => {
       title: "Alamat",
       details: [
         "Jl. Desa Bunut Hilir No. 1",
-        "Kecamatan X, Kabupaten Y",
-        "Kode Pos: 12345"
+        "Kecamatan Bunut Hilir, Kabupaten Kapuas Hulu",
+        "Kode Pos: 87863"
       ]
     },
     {

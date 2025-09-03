@@ -4,17 +4,48 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+// ✅ Sesuaikan dengan struktur response dari Laravel backend
+type LoginResponse = {
+  access_token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+};
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Login logic will be implemented with Supabase integration
-    console.log("Login attempt:", { username, password });
+    setError(null);
+
+    try {
+      // ✅ API login ke Laravel
+      const response = await axios.post<LoginResponse>(
+        "http://127.0.0.1:8000/api/login",
+        { email, password }
+      );
+
+      const token = response.data.access_token;
+
+      // Simpan token di localStorage
+      localStorage.setItem("token", token);
+
+      // Redirect ke dashboard admin
+      navigate("/admin/dashboard");
+    } catch (err: any) {
+      console.error("Login gagal:", err);
+      setError("Email atau password salah!");
+    }
   };
 
   return (
@@ -48,16 +79,16 @@ const Login = () => {
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
-                    id="username"
-                    type="text"
-                    placeholder="Masukkan username"
+                    id="email"
+                    type="email"
+                    placeholder="Masukkan email"
                     className="pl-10"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -90,6 +121,10 @@ const Login = () => {
                 </div>
               </div>
 
+              {error && (
+                <p className="text-red-500 text-sm text-center">{error}</p>
+              )}
+
               <Button type="submit" className="w-full" size="lg">
                 Masuk
               </Button>
@@ -104,8 +139,8 @@ const Login = () => {
         </Card>
 
         <div className="text-center mt-6">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Kembali ke Beranda

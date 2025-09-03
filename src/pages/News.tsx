@@ -3,58 +3,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
-import news1 from "@/assets/news-1.jpg";
-import news2 from "@/assets/news-2.jpg";
-import news3 from "@/assets/news-3.jpg";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+interface News {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  author: string;
+  date: string;
+  image?: string;
+}
 
 const News = () => {
-  const allNews = [
-    {
-      title: "Rapat Koordinasi Pembangunan Infrastruktur Desa",
-      excerpt: "Kepala desa bersama perangkat desa mengadakan rapat koordinasi untuk membahas rencana pembangunan infrastruktur jalan dan jembatan yang akan dimulai bulan depan.",
-      date: "15 Maret 2024",
-      author: "Sekretaris Desa",
-      category: "Pembangunan",
-      image: news1
+  const { data: allNews = [], isLoading } = useQuery<News[]>({
+    queryKey: ["news"],
+    queryFn: async (): Promise<News[]> => {
+      const res = await axios.get<News[]>("http://localhost:8000/api/news");
+      return res.data;
     },
-    {
-      title: "Festival Budaya Desa Bunut Hilir Meriah dan Sukses",
-      excerpt: "Festival budaya tahunan desa berhasil diselenggarakan dengan antusias warga. Berbagai kegiatan seni dan budaya lokal dipamerkan dalam acara yang berlangsung 3 hari ini.",
-      date: "10 Maret 2024",
-      author: "Karang Taruna", 
-      category: "Budaya",
-      image: news2
-    },
-    {
-      title: "Program Bantuan Sosial untuk Keluarga Kurang Mampu",
-      excerpt: "Pemerintah desa menyalurkan bantuan sosial berupa sembako dan dana tunai kepada 50 keluarga kurang mampu sebagai bentuk kepedulian terhadap masyarakat.",
-      date: "5 Maret 2024",
-      author: "Bendahara Desa",
-      category: "Sosial", 
-      image: news3
-    },
-    {
-      title: "Perbaikan Sistem Irigasi Sawah Desa",
-      excerpt: "Proyek perbaikan sistem irigasi sawah telah selesai dilaksanakan. Diharapkan dapat meningkatkan produktivitas pertanian warga desa.",
-      date: "28 Februari 2024",
-      author: "Kepala Desa",
-      category: "Pertanian"
-    },
-    {
-      title: "Pelatihan Keterampilan Menjahit untuk Ibu-Ibu PKK",
-      excerpt: "Program pelatihan keterampilan menjahit diselenggarakan untuk meningkatkan kemampuan ekonomi ibu-ibu anggota PKK desa.",
-      date: "20 Februari 2024",
-      author: "Ketua PKK",
-      category: "Pelatihan"
-    },
-    {
-      title: "Gotong Royong Membersihkan Lingkungan Desa",
-      excerpt: "Warga desa bersama-sama melakukan kegiatan gotong royong membersihkan lingkungan desa dalam rangka menyambut hari kemerdekaan.",
-      date: "15 Februari 2024",
-      author: "RT/RW",
-      category: "Lingkungan"
-    }
-  ];
+  });
+  
+
+  if (isLoading) {
+    return <p className="text-center py-10">Loading berita...</p>;
+  }
 
   return (
     <div className="min-h-screen py-8">

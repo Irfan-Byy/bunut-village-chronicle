@@ -1,4 +1,4 @@
-# Logs
+# === Logs ===
 logs
 *.log
 npm-debug.log*
@@ -7,12 +7,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# === React (Frontend) ===
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# === Laravel (Backend) ===
+/backend/vendor
+/backend/node_modules
+/backend/storage/*.key
+/backend/storage/logs
+/backend/storage/framework/cache/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+/backend/.env
+
+# === System / Editor ===
 .vscode/*
 !.vscode/extensions.json
 .idea

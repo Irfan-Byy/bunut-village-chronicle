@@ -65,7 +65,7 @@ const About = () => {
                     <div>
                       <div className="font-semibold text-foreground">Lokasi</div>
                       <div className="text-sm text-muted-foreground">
-                        Kecamatan X, Kabupaten Y, Provinsi Z
+                        Kecamatan Bunut Hilir, Kabupaten Kapuas Hulu, Provinsi Kalimantan Barat
                       </div>
                     </div>
                   </div>
