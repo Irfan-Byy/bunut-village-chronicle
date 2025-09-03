@@ -3,16 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://github.com/Irfan-Byy/bunut-village-chronicle.git",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-
     "dev:backend": "cd backend && php artisan serve",
     "dev:frontend": "vite",
-    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -79,6 +81,7 @@
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "gh-pages": "^6.3.0",
     "globals": "^15.15.0",
     "lovable-tagger": "^1.1.9",
     "postcss": "^8.5.6",
